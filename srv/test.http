@@ -1,0 +1,65 @@
+GET http://localhost:4004/CatalogService/
+
+### read service metadata
+GET http://localhost:4004/CatalogService/$metadata
+
+### read first 5 employees
+GET http://localhost:4004/CatalogService/EmployeeSet?$top=5
+
+### read first 2 purchase orders with expanded items and partner information
+GET http://localhost:4004/CatalogService/POs?$top=2&$expand=Items,PARTNER_GUID
+
+### create a new employee
+POST http://localhost:4004/CatalogService/EmployeeSet
+Content-Type: application/json
+
+{
+ 
+      "nameFirst": "dip",
+      "nameMiddle": "Ramesh",
+      "nameLast": "ragho",
+      "nameInitials": "DRR",
+      "sex": "F",
+      "language": "EN",
+      "phoneNumber": "9021234567",
+      "email": "dip.ragho@gmail.com",
+      "loginName": "dip.ragho",
+      "Currency_code": "USD",
+      "salaryAmount": 50000,
+      "accountNumber": "100001",
+      "bankId": "CBI",
+      "bankName": "Central Bank",
+      "validFrom": "2024-01-01",
+      "validTo": "2026-12-31"
+}
+
+### update single employee which was created in above step
+GET  http://localhost:4004/CatalogService/EmployeeSet/550e8400-e29b-41d4-a716-446655440001
+
+###update employee's salary
+PATCH http://localhost:4004/CatalogService/EmployeeSet/550e8400-e29b-41d4-a716-446655440001
+Content-Type: application/json
+
+{
+    "salaryAmount": 1000000,
+    "Currency_code": "INR"
+}
+
+### read single po -old syntax  works as its not UUID 
+GET http://localhost:4004/CatalogService/POs('990e8400e29b41d4a716446655440001')
+
+### create a new purchase order
+POST http://localhost:4004/CatalogService/POs
+Content-Type: application/json
+
+{
+  "CURRENCY_CODE": "INR",
+  "GROSS_AMOUNT":"94400",
+  "NET_AMOUNT": "80000",
+  "TAX_AMOUNT": "14400",
+  "NODE_KEY": "990e8400e29b41d4a716446655441111",
+  "PO_ID": "PO00112",
+  "PARTNER_NODE_KEY": "660e8400e29b41d4a716446655440001",
+  "LIFECYCLE_STATUS": "N",
+  "OVERALL_STATUS": "C"
+}

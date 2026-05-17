@@ -1,7 +1,7 @@
 using { dip.db.master, dip.db.transaction } from '../db/datamodel';
 service CatalogService  @(path:'/CatalogService') { 
 
-    
+    // @Capabilities : { Insertable, Updatable:false, Deletable }
     entity BusinessPartnerSet as projection on master.businesspartner ;
     entity AddressSet as projection on master.address ;
     entity ProductSet as projection on master.product ;
