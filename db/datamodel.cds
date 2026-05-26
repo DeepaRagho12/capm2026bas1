@@ -112,6 +112,7 @@ entity purchaseorder : common.Amount {
   // ✅ THIS is the correct way
   Items: Association to many poitems
     on Items.PARENT_KEY = $self;
+    NOTE: String(256);
 }
 entity poitems : common.Amount {
   key NODE_KEY : Guid;

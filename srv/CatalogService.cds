@@ -8,16 +8,21 @@ service CatalogService  @(path:'/CatalogService') {
     // entity ProdTextSet as projection on master.prodtext ;
     entity PurchaseOrderSet as projection on transaction.purchaseorder;
     entity EmployeeSet as projection on master.employee;
-
-    entity POs @(
+entity POs @(
     title: '{i18n>poHeader}'
-) as projection on transaction.purchaseorder{
+) as projection on transaction.purchaseorder {
+
     *,
-    Items: redirected to POItems,
+    round(GROSS_AMOUNT,2) as GROSS_AMOUNT: Decimal(15,2),
+    Items : redirected to POItems
 
+} actions {
 
-}
+    function largestOrder() returns array of POs;
 
+    action boost() returns String;
+
+};
 entity POItems @( title : '{i18n>poItems}' )
 as projection on transaction.poitems{
     *,

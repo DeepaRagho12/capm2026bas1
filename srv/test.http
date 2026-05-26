@@ -63,3 +63,84 @@ Content-Type: application/json
   "LIFECYCLE_STATUS": "N",
   "OVERALL_STATUS": "C"
 }
+
+
+###get data with custom handler
+GET http://localhost:4004/odata/v4/mysrvdemo/ReadEmployeeSrv/550e8400-e29b-41d4-a716-446655440001
+###create employee with custome handler
+POST http://localhost:4004/odata/v4/mysrvdemo/CreateEmployeeSrv
+Content-Type: application/json
+
+{
+ 
+      "nameFirst": "dip",
+      "nameMiddle": "Ramesh",
+      "nameLast": "ragho",
+      "nameInitials": "DRR",
+      "sex": "F",
+      "language": "EN",
+      "phoneNumber": "9021234567",
+      "email": "dip.ragho@gmail.com",
+      "loginName": "dip.ragho",
+      "Currency_code": "USD",
+      "salaryAmount": 50000,
+      "accountNumber": "100001",
+      "bankId": "CBI",
+      "bankName": "Central Bank",
+      "validFrom": "2024-01-01",
+      "validTo": "2026-12-31"
+}
+
+### update employee with custome handler
+PATCH http://localhost:4004/odata/v4/mysrvdemo/UpdateEmployeeSrv/550e8400-e29b-41d4-a716-446655440001
+Content-Type: application/json
+
+{   
+    "ID":"550e8400-e29b-41d4-a716-446655440001",
+    "nameFirst":"Dini",
+    "nameLast":"sure"
+}
+
+#### delete employee with custome handler
+DELETE http://localhost:4004/odata/v4/mysrvdemo/DeleteEmployeeSrv/550e8400-e29b-41d4-a716-446655440001
+
+
+### get random pos
+GET http://localhost:4004/CatalogService/POs?$top=5
+
+### calling action for the entity
+POST http://localhost:4004/CatalogService/POs('990e8400e29b41d4a716446655440005')/CatalogService.boost 
+Content-Type: application/json 
+
+{}
+
+###get largest po
+
+GET http://localhost:4004/CatalogService/POs('990e8400e29b41d4a716446655440005')/CatalogService.largestOrder
+### get single pos
+GET http://localhost:4004/CatalogService/POs('990e8400e29b41d4a716446655440005')
+
+
+
+###V2 magic logic
+### Service end point by prefixing/  v2
+http://localhost:4004/v2/CatalogService
+
+### read service metadata
+GET http://localhost:4004/v2/CatalogService/$metadata
+
+### read first 5 employees
+GET http://localhost:4004/v2/CatalogService/EmployeeSet?$top=5
+
+### read largest po
+GET http://localhost:4004/v2/CatalogService/POs('990e8400e29b41d4a716446655440005')/CatalogService.largestOrder
+
+
+### custom action with v2 endpoint for boost
+POST http://localhost:4004/v2/CatalogService/POs_boost?NODE_KEY=990e8400e29b41d4a716446655440005
+Content-Type: application/json
+
+{}
+
+### largest order in system with v2 endpoint
+GET http://localhost:4004/v2/CatalogService/POs_largestOrder?ID=990e8400e29b41d4a716446655440005
